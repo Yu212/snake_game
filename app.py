@@ -143,11 +143,6 @@ def move(direction):
 
         step_counter += 1
 
-        if step_counter < 5000 or step_counter > 60000:
-            step_wait_millis = 5
-        else:
-            step_wait_millis = 1
-
         # Capture latest Hamiltonian data if solver exposed it
         solver_mod = sys.modules.get(SOLVER_MODULE_NAME)
         if solver_mod is not None:
@@ -366,7 +361,7 @@ def launch_ui():
             repeat["start_ts"] = now
         held = now - repeat["start_ts"]
         # begin auto-repeat only after holding 0.3s
-        if held >= 0:
+        if held >= 0.3:
             trigger_step()
         repeat["job"] = root.after(step_wait_millis, schedule_repeat)
 
